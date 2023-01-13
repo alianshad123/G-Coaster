@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="itemData"
+            type="com.anshad.g_coaster.db.Cart" />
+
+        <variable
+            name="listner"
+            type="com.anshad.g_coaster.ui.cart.ItemClickListner" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_marginTop="5dp"
+        app:cardCornerRadius="6dp"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/tv_code_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{itemData.codename}"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Puma">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{itemData.name}"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_code_name"
+                tools:text="Puma123">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_item_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{itemData.color}"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_item_name"
+                tools:text="green">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_sellingprize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{itemData.sellingprize.toString()}"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="50Rs">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Size"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@id/tv_size_value"
+                app:layout_constraintTop_toBottomOf="@id/tv_sellingprize">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_size_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{itemData.size.toString()}"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_sellingprize"
+                tools:text="9">
+
+            </TextView>
+
+            <!-- <TextView
+                    android:textSize="20sp"
+                    android:text="@string/cost"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toStartOf="@id/tv_cost_value"
+                    app:layout_constraintTop_toBottomOf="@id/tv_size"
+                    android:id="@+id/tv_orginal_cost"
+                    android:layout_marginEnd="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+
+                <TextView
+                    android:textSize="20sp"
+                    tools:text="9"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_size_value"
+                    android:id="@+id/tv_cost_value"
+                    android:text="@{itemData.costprize.toString()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>-->
+
+            <!--  <TextView
+                  android:id="@+id/tv_quantity"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginEnd="10dp"
+                  android:text="@string/quantity"
+                  android:textColor="@color/black"
+                  android:textSize="18sp"
+                  app:layout_constraintEnd_toStartOf="@id/tv_quantity_value"
+                  app:layout_constraintTop_toBottomOf="@id/tv_size_value">
+
+              </TextView>-->
+
+            <TextView
+                android:id="@+id/tv_quantity_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{itemData.quantity.toString()}"
+                android:textColor="@color/purple_500"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_size_value"
+                tools:text="9">
+
+            </TextView>
+
+            <Button
+                android:text="@string/delete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_quantity_value"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/delete_btn"
+                android:onClick="@{(view)->listner.onDataItemClicked(itemData)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </Button>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.anshad.g_coaster.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_addItemFragment"
+            app:destination="@id/nav_addItem" />
+
+        <action
+            android:id="@+id/action_splashFragment_to_itemsFragment"
+            app:popUpTo="@id/nav_graph"
+            app:destination="@id/nav_items" />
+
+        <action
+            android:id="@+id/action_splashFragment_to_saleItemsFragment"
+            app:popUpTo="@id/nav_graph"
+            app:destination="@id/nav_saleitems" />
+
+        <action
+            android:id="@+id/action_splashFragment_to_outofStockFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/nav_outofstock" />
+        <actionaction_billsFragment_to_soldItemsFragment
+            android:id="@+id/action_splashFragment_to_soldItemsFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/nav_sold_items" />
+        <action
+            android:id="@+id/action_splashFragment_to_salesReportFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/nav_sales_report" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_addItem"
+        android:name="com.anshad.g_coaster.ui.additem.AddItemFragment"
+        android:label="Add Items"
+        tools:layout="@layout/fragment_add_item" >
+        <argument
+            android:name="isEdit"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+        <argument
+            android:name="Item"
+            app:argType="com.anshad.g_coaster.model.ItemsModel"
+            app:nullable="false"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_items"
+        android:name="com.anshad.g_coaster.ui.items.ItemsFragment"
+        android:label="Items"
+        tools:layout="@layout/fragment_items" >
+
+        <action
+            android:id="@+id/action_itemsFragment_to_addItemFragment"
+            app:destination="@id/nav_addItem" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_saleitems"
+        android:name="com.anshad.g_coaster.ui.saleitems.SaleItemsFragment"
+        android:label="Sale Items"
+        tools:layout="@layout/fragment_sale_items" >
+
+        <action
+            android:id="@+id/action_saleItemsFragment_to_addItemFragment"
+            app:destination="@id/nav_addItem" />
+
+        <action
+            android:id="@+id/action_saleItemsFragment_to_cartFragment"
+            app:destination="@id/nav_cart" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_cart"
+        android:name="com.anshad.g_coaster.ui.cart.CartFragment"
+        android:label="Cart"
+        tools:layout="@layout/fragment_cart" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_outofstock"
+        android:name="com.anshad.g_coaster.ui.outofstocks.OutofStockFragment"
+        android:label="Out of Stocks"
+        tools:layout="@layout/fragment_outof_stock" >
+
+        <action
+            android:id="@+id/action_outofStockFragment_to_addItemFragment"
+            app:destination="@id/nav_addItem" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sales_report"
+        android:name="com.anshad.g_coaster.ui.salereport.SalesReportFragment"
+        android:label="Sales Report"
+        tools:layout="@layout/fragment_sales_report" >
+
+        <action
+            android:id="@+id/action_salesreportFragment_to_soldItemsFragment"
+            app:destination="@id/nav_sold_items" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sold_items"
+        android:name="com.anshad.g_coaster.ui.sales.SalesFragment"
+        android:label="Sold Out Items"
+        tools:layout="@layout/fragment_sales" >
+
+        <argument
+            android:name="dateKey"
+            android:defaultValue="null"
+            app:argType="string" />
+
+    </fragment>
+
+
+</navigation>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="itemData"
+            type="com.anshad.g_coaster.model.ItemsModel" />
+
+        <variable
+            name="listner"
+            type="com.anshad.g_coaster.ui.items.ItemClickListner" />
+        <variable
+            name="callback"
+            type="com.anshad.g_coaster.utils.ItemWithSwipeButtonClickCallBack" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_marginTop="5dp"
+        app:cardCornerRadius="6dp"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.anshad.g_coaster.utils.SwipeRevealLayout
+            android:id="@+id/swipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            app:dragFromEdge="right"
+            app:marginFromContentView="20dp">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical|end">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_delete"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical|end"
+                        app:cardBackgroundColor="@color/purple_700"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="0dp"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/delete_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:backgroundTint="@color/purple_700"
+
+                            android:onClick="@{(view)->callback.onMenu(itemData,view.id,swipe)}"
+                            android:tint="@android:color/white"
+                            app:srcCompat="@android:drawable/ic_delete" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_edit"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical|end"
+                        app:cardBackgroundColor="@color/black"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="0dp"
+                        app:cardUseCompatPadding="true"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/card_delete"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/edit_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:onClick="@{(view)->callback.onMenu(itemData,view.id,swipe)}"
+                            android:backgroundTint="@color/black"
+                            android:tint="@android:color/white"
+                            app:srcCompat="@android:drawable/ic_menu_edit" />
+
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:background="@color/white"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_margin="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        tools:text="Puma"
+                        android:textSize="22sp"
+                        android:text="@{itemData.codename}"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:id="@+id/tv_code_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+                    <TextView
+                        tools:text="Puma123"
+                        android:textSize="20dp"
+                        android:text="@{itemData.name}"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_code_name"
+                        android:id="@+id/tv_item_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+                    <TextView
+                        tools:text="green"
+                        android:textSize="20dp"
+                        android:text="@{itemData.color}"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_item_name"
+                        android:id="@+id/tv_item_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+                    <TextView
+                        tools:text="50Rs"
+                        android:textStyle="bold"
+                        android:textSize="22sp"
+                        android:text="@{itemData.sellingprize.toString()}"
+                        android:textColor="@color/green"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:id="@+id/tv_sellingprize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:text="Size"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toStartOf="@id/tv_size_value"
+                        app:layout_constraintTop_toBottomOf="@id/tv_sellingprize"
+                        android:id="@+id/tv_size"
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+                    <TextView
+                        android:textSize="20sp"
+                        tools:text="9"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_sellingprize"
+                        android:id="@+id/tv_size_value"
+                        android:text="@{itemData.size.toString()}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:text="@string/cost"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toStartOf="@id/tv_cost_value"
+                        app:layout_constraintTop_toBottomOf="@id/tv_size"
+                        android:id="@+id/tv_orginal_cost"
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+                    <TextView
+                        android:textSize="20sp"
+                        tools:text="9"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_size_value"
+                        android:id="@+id/tv_cost_value"
+                        android:text="@{itemData.costprize.toString()}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+                 <!--   <TextView
+                        android:textSize="20sp"
+                        android:text="@string/quantity"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toStartOf="@id/tv_quantity_value"
+                        app:layout_constraintTop_toBottomOf="@id/tv_orginal_cost"
+                        android:id="@+id/tv_quantity"
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>-->
+
+                    <TextView
+                        android:textSize="20sp"
+                        tools:text="9"
+                        android:textColor="@color/purple_500"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_cost_value"
+                        android:id="@+id/tv_quantity_value"
+                        android:text="@{itemData.getQuantityData}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+
+        </com.anshad.g_coaster.utils.SwipeRevealLayout>
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

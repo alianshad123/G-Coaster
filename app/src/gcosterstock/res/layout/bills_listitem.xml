@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="billsData"
+            type="com.anshad.g_coaster.model.BillList" />
+
+        <variable
+            name="listner"
+            type="com.anshad.g_coaster.ui.bills.ItemClickListner" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_marginTop="5dp"
+        app:cardCornerRadius="6dp"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:onClick="@{(view)->listner.onDataItemClicked(billsData)}"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/tv_bill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`#`+billsData.id.toString()}"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Puma">
+
+            </TextView>
+
+          <!--  <TextView
+                android:id="@+id/tv_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{itemData.name}"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_code_name"
+                tools:text="Puma123">
+
+            </TextView>-->
+
+          <!--  <TextView
+                android:id="@+id/tv_item_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{itemData.color}"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_item_name"
+                tools:text="green">
+
+            </TextView>-->
+
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{billsData.grosstotal.toString()+`Rs`}"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="50Rs">
+
+            </TextView>
+
+         <!--   <TextView
+                android:id="@+id/tv_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Size"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@id/tv_size_value"
+                app:layout_constraintTop_toBottomOf="@id/tv_sellingprize">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_size_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{itemData.size.toString()}"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_sellingprize"
+                tools:text="9">
+
+            </TextView>-->
+
+            <TextView
+                android:id="@+id/tv_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Quantity: `+billsData.quantity}"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_amount"
+                tools:text="9">
+
+            </TextView>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

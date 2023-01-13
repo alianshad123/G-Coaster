@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.additem.AddItemFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anshad.g_coaster.ui.additem.AddItemViewModel" />
+
+        <variable
+            name="nameError"
+            type="String" />
+        <variable
+            name="codeError"
+            type="String" />
+        <variable
+            name="costPrizeError"
+            type="String" />
+        <variable
+            name="sellingPrizeError"
+            type="String" />
+        <variable
+            name="quantityError"
+            type="String" />
+        <variable
+            name="sizeError"
+            type="String" />
+        <variable
+            name="colorError"
+            type="String" />
+
+    </data>
+
+<androidx.core.widget.NestedScrollView
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:padding="10dp"
+            android:textColorHint="@color/purple_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.name}"
+                app:errorText="@{nameError}"
+                android:inputType="text"
+                android:singleLine="true"
+                app:boxBackgroundColor="@color/purple_700" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/codename_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/code"
+            android:padding="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:textColorHint="@color/purple_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/codename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.code}"
+                app:errorText="@{codeError}"
+                android:inputType="text"
+                android:singleLine="true"
+
+                app:boxBackgroundColor="@color/purple_700" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/costprize_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cost_prize"
+            android:padding="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:textColorHint="@color/purple_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/codename_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/costprize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.costPrize}"
+                app:errorText="@{costPrizeError}"
+                android:inputType="numberDecimal"
+                android:singleLine="true"
+
+                app:boxBackgroundColor="@color/purple_700" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/sellingprize_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/selling_prize"
+            android:padding="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:textColorHint="@color/purple_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/costprize_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/sellingprize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.sellingPrize}"
+                app:errorText="@{sellingPrizeError}"
+                android:inputType="numberDecimal"
+                android:singleLine="true"
+
+                app:boxBackgroundColor="@color/purple_700" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/quantity_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/quantity"
+            android:padding="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:textColorHint="@color/purple_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sellingprize_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.quantity}"
+                app:errorText="@{quantityError}"
+                android:inputType="number"
+                android:singleLine="true"
+
+                app:boxBackgroundColor="@color/purple_700" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/color_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/color"
+            android:padding="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:textColorHint="@color/purple_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/quantity_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.color}"
+                app:errorText="@{colorError}"
+                android:inputType="text"
+                android:singleLine="true"
+
+                app:boxBackgroundColor="@color/purple_700" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/size_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/size"
+            android:padding="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:textColorHint="@color/purple_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/color_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.size}"
+                app:errorText="@{sizeError}"
+                android:inputType="number"
+                android:singleLine="true"
+
+                app:boxBackgroundColor="@color/purple_700" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="10dp"
+            android:textColor="#FF1328EA"
+            android:textStyle="bold"
+            android:tag="hide"
+            android:text="Add multiple size"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintTop_toBottomOf="@id/size_input"
+            android:id="@+id/tv_choosemultisize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.chip.ChipGroup
+            app:layout_constraintTop_toBottomOf="@id/tv_choosemultisize"
+            android:id="@+id/chips_group"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:singleSelection="false">
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"/>
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="35"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="36"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="37"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="38"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="39"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="40"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="41"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="42"/>
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="43"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="44"/>
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="45"/>
+            <com.google.android.material.chip.Chip
+                style="@style/ChipSetStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="46"/>
+
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <Button
+            android:id="@+id/btn_additem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:padding="10dp"
+            android:text="@string/add_item"
+           app:layout_constraintTop_toBottomOf="@id/chips_group"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </Button>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+</layout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anshad.g_coaster.ui.saleitems.dialogs.QuantityDialogViewModel" />
+
+
+        <import type="com.anshad.g_coaster.constants.enums.QuantityEvents" />
+
+        <variable
+            name="dialog"
+            type="com.anshad.g_coaster.ui.saleitems.dialogs.QuantityDialogFragment" />
+
+        <variable
+            name="eventListener"
+            type="com.anshad.g_coaster.ui.saleitems.dialogs.QuantityDialogListner" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:text="@string/enter_quantity"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            tools:text="Puma"
+
+            android:layout_marginStart="5dp"
+            android:text="@{viewModel.name}"
+            android:textColor="@color/purple_700"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            tools:text="D18"
+
+            android:layout_marginEnd="5dp"
+            android:text="@{viewModel.code}"
+            android:textColor="@color/purple_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+      <!--  <ImageButton
+            app:layout_constraintStart_toEndOf="@id/quantity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/quantity"
+            app:layout_constraintBottom_toBottomOf="@id/quantity"
+            android:id="@+id/add"
+            android:padding="5dp"
+            android:onClick="@{ () -> viewModel.incrementQty()}"
+            android:src="@drawable/ic_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/quantity"
+            app:layout_constraintTop_toTopOf="@id/quantity"
+            app:layout_constraintBottom_toBottomOf="@id/quantity"
+            android:id="@+id/minus"
+            android:padding="5dp"
+            android:onClick="@{ () -> viewModel.decrementQty()}"
+           android:src="@drawable/ic_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+-->
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/quantity"
+            android:background="@drawable/bg_stroke"
+            android:layout_width="0dp"
+            android:paddingStart="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:hint="0"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:afterTextChanged="@{viewModel::setQuantityValue}"
+            android:text="@{viewModel.quantityValue}"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="5"
+            android:maxLines="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="@{ () -> viewModel.onSubmit()}"
+            android:text="@string/add_to_cart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/materialButton3"
+            app:layout_constraintTop_toBottomOf="@+id/quantity" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="@{ () -> viewModel.onCancel()}"
+            android:text="@string/cancel"
+            app:layout_constraintEnd_toStartOf="@+id/materialButton2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quantity" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

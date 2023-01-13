@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <group android:checkableBehavior="single">
+      <!--  <item
+            android:id="@+id/nav_saleitems"
+            android:title="Sale Items" />-->
+        <item
+            android:id="@+id/nav_outofstock"
+            android:title="Out of Stock"/>
+
+        <item
+            android:id="@+id/nav_bills"
+            android:title="Sales Report"/>
+
+        <!--<item
+            android:id="@+id/nav_sales_report"
+            android:title="Sales Report"/>-->
+
+       <!-- <item
+            android:id="@+id/nav_addItem"
+            android:title="Add Items" />
+        <item
+            android:id="@+id/nav_items"
+            android:title="Items" />-->
+    </group>
+
+
+
+</menu>

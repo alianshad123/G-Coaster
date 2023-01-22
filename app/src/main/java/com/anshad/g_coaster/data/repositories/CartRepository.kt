@@ -3,10 +3,7 @@ package com.anshad.g_coaster.data.repositories
 import androidx.lifecycle.LiveData
 import com.anshad.basestructure.model.APIResult
 import com.anshad.g_coaster.db.Cart
-import com.anshad.g_coaster.model.AddItemModel
-import com.anshad.g_coaster.model.SalesItemsModel
-import com.anshad.g_coaster.model.SalesModel
-import com.anshad.g_coaster.model.SalesResponseModel
+import com.anshad.g_coaster.model.*
 import io.reactivex.rxjava3.core.Single
 
 interface CartRepository {
@@ -17,6 +14,7 @@ interface CartRepository {
 
     fun updateSale(request: SalesModel): Single<APIResult<SalesResponseModel>>
     fun updateSaleItems(saleItems: List<SalesItemsModel>): Single<APIResult<String>>
+    fun updateSalePrint(salesUpdate: SalesUpdate):Single<APIResult<String>>
 
 
 }

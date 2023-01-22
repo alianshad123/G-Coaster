@@ -12,6 +12,7 @@
         <variable
             name="listner"
             type="com.anshad.g_coaster.ui.saleitems.ItemClickListner" />
+        <import type="android.view.View"/>
 
     </data>
 
@@ -93,6 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:text="Size"
+                    android:visibility="@{itemData.size!=null ? View.VISIBLE : View.GONE}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toStartOf="@id/tv_size_value"
@@ -105,6 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{itemData.size.toString()}"
+                    android:visibility="@{itemData.size!=null ? View.VISIBLE : View.GONE}"
                     android:textColor="@color/black"
                     android:textSize="22sp"
                     android:textStyle="bold"

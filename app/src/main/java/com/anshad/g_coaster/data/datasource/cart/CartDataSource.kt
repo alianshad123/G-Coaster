@@ -11,6 +11,7 @@ import com.anshad.g_coaster.db.CartDatabase
 import com.anshad.g_coaster.model.SalesItemsModel
 import com.anshad.g_coaster.model.SalesModel
 import com.anshad.g_coaster.model.SalesResponseModel
+import com.anshad.g_coaster.model.SalesUpdate
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -22,6 +23,7 @@ class CartDataSource @Inject constructor(
     interface Remote {
         fun updateSale(request: SalesModel): Single<APIResult<SalesResponseModel>>
         fun updateSaleItems(request: List<SalesItemsModel>): Single<APIResult<String>>
+        fun updateSalePrint(request: SalesUpdate): Single<APIResult<String>>
     }
     override suspend fun insertCart(cart: Cart) {
          cartDatabase.getCartDao().insertCart(cart)
@@ -45,6 +47,11 @@ class CartDataSource @Inject constructor(
 
     override fun updateSaleItems(request: List<SalesItemsModel>): Single<APIResult<String>> {
         return remote.updateSaleItems(request)
+    }
+
+    override fun updateSalePrint(request: SalesUpdate): Single<APIResult<String>> {
+        return remote.updateSalePrint(request)
+
     }
 
 }

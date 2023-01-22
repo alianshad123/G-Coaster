@@ -3,7 +3,7 @@ package com.anshad.g_coaster.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class SalesModel (
+class SalesModel(
     @SerializedName("quantity")
     @Expose
     var quantity: Int? = null,
@@ -18,5 +18,5 @@ class SalesModel (
     var discount: Int? = null,
     @SerializedName("roundoff")
     @Expose
-    var roundoff: Double? = null
+    var roundoff: Double? = null,
 )

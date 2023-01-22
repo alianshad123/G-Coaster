@@ -1,5 +1,6 @@
 package com.anshad.g_coaster.ui.bills
 
+import android.view.View
 import com.anshad.g_coaster.R
 import com.anshad.g_coaster.databinding.BillsListitemBinding
 import com.anshad.g_coaster.model.BillList
@@ -22,5 +23,5 @@ class BillsListAdapter (private val list: List<BillList>,
 }
 
 interface ItemClickListner {
-    fun onDataItemClicked(billsData: BillList)
+    fun onDataItemClicked(billsData: BillList,view: View)
 }

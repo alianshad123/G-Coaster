@@ -32,6 +32,7 @@ import com.anshad.basestructure.utils.EventObserver
 import com.anshad.g_coaster.R
 import com.anshad.g_coaster.databinding.FragmentCartBinding
 import com.anshad.g_coaster.db.Cart
+import com.anshad.g_coaster.model.SalesItemsModel
 import com.anshad.g_coaster.utils.Utils
 import com.itextpdf.text.*
 import com.itextpdf.text.pdf.BaseFont
@@ -125,16 +126,6 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED) {
                 if (it) {
 
-                    viewModel.sale_success = true
-                    CoroutineScope(Dispatchers.Main).launch {
-
-                        viewModel.clearCart().also {
-                            viewModel.isClicked = false
-
-                        }
-
-                    }
-
                     printUsb()
                 }
             }
@@ -191,6 +182,18 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
         binding.checkout.setOnClickListener {
 
             if (!viewModel.isClicked) {
+
+                val usbConnection = UsbPrintersConnections.selectFirstConnected(requireContext())
+                if (usbConnection == null) {
+                    viewModel.isClicked=false
+                    android.app.AlertDialog.Builder(requireContext())
+                        .setTitle("USB Connection")
+                        .setMessage("No USB printer found.")
+                        .show()
+                    return@setOnClickListener
+                }
+
+
                 viewModel.sale_success=false
                 viewModel.isClicked = true
                 viewModel.updateSale()
@@ -225,6 +228,7 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
         val usbConnection = UsbPrintersConnections.selectFirstConnected(requireContext())
         val usbManager = requireContext().getSystemService(AppCompatActivity.USB_SERVICE) as UsbManager
         if (usbConnection == null) {
+            viewModel.isClicked=false
             android.app.AlertDialog.Builder(requireContext())
                 .setTitle("USB Connection")
                 .setMessage("No USB printer found.")
@@ -450,25 +454,29 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
                         intent.getParcelableExtra<Parcelable>(UsbManager.EXTRA_DEVICE) as UsbDevice?
                     if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
                         if (usbDevice != null) {
-                            Toast.makeText(requireContext(),"broadcast",Toast.LENGTH_SHORT).show()
+
+                            viewModel.sale_success = true
+                            CoroutineScope(Dispatchers.Main).launch {
+
+                                viewModel.clearCart().also {
+                                    viewModel.isClicked = false
+
+                                }
+
+                            }
+
+                            val txtToPrint=setPrintText()
+                            viewModel.updateSalePrint(viewModel.saleItems?.get(0)?.saleId,txtToPrint)
+
                             val runner = AsyncUsbEscPosPrint(context)
                             runner.execute( getAsyncEscPosPrinter(
                                 UsbConnection(
                                     usbManager,
                                     usbDevice
-                                )
+                                ),txtToPrint
                             ))
 
-                        /*    // printIt(new UsbConnection(usbManager, usbDevice));
-                         AsyncUsbEscPosPrint(context)
-                                .execute(
-                                    getAsyncEscPosPrinter(
-                                        UsbConnection(
-                                            usbManager,
-                                            usbDevice
-                                        )
-                                    )
-                                )*/
+
 
                         }
                     }
@@ -477,16 +485,49 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
         }
     }
 
+    private fun setPrintText(): String {
+        val format = SimpleDateFormat("dd-MM-yyyy")
+        var textPrint=""
+        textPrint= "[C]\n" +
+                "[C]           ======= G-COSTER =======\n"+
+                "[C]              SHOE HUB\n"+
+                "[C]           Let's explore the fashion\n"+
+                "[C]               CourtRoad,\n"+
+                "[C]             Alathur\n"+
+                "[C]           \n" +
+                "[L]Mob:8075617932\n" +
+                "[C]-----------------------------------------------\n"+
+                "[L]\n" +
+                "[L]Sales#:${viewModel.saleItems?.get(0)?.saleId}[R]                  ${format.format(Date())}\n"+
+                "[C]-----------------------------------------------\n"+
+                "[L]Item[C]       Quantity       [R]Amount\n" +
+                "[C]-----------------------------------------------\n"+
+                getItems()+"\n"+
+                "[C]-----------------------------------------------\n"+
+                "[C]           \n" +
+                "[C]           \n" +
+                "[L]Total:[C]       ${getSaleQuantity(viewModel.saleItems)}[R]            ${viewModel.sale?.billamount} INR\n" +
+                "[C]-----------------------------------------------\n"+
+                "[L]Discount : [R]                  ${viewModel.sale?.discount} INR\n" +
+                "[L]RoundOff : [R]                  ${viewModel.sale?.roundoff} INR\n" +
+                "[C]-----------------------------------------------\n"+
+                "[L]Net Total : [R]                  ${viewModel.sale?.grosstotal} INR\n" +
+                "[C]-----------------------------------------------\n"+
+                "\n"+
+                "[C]      **THANK YOU FOR SHOPPING WITH US**\n"
+
+        return textPrint
+    }
+
 
     /**
      * Asynchronous printing
      */
     @SuppressLint("SimpleDateFormat")
-    fun getAsyncEscPosPrinter(printerConnection: DeviceConnection?): AsyncEscPosPrinter {
-        val format = SimpleDateFormat("dd-MM-yyyy")
+    fun getAsyncEscPosPrinter(printerConnection: DeviceConnection?, textToPrint: String): AsyncEscPosPrinter {
         val printer = AsyncEscPosPrinter(printerConnection!!, 203, 60f, 32)
         // createPdf(Utils.getAppPath(requireActivity()))
-        val textToPrint= "[C]\n" +
+        /*val textToPrint= "[C]\n" +
                 "[C]           ======= G-COSTER =======\n"+
                 "[C]              SHOE HUB\n"+
                 "[C]           Let's explore the fashion\n"+
@@ -504,29 +545,37 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
                 "[C]-----------------------------------------------\n"+
                 "[C]           \n" +
                 "[C]           \n" +
-                "[L]Total :${viewModel.saleItems?.size}[R]                  ${viewModel.sale?.billamount} INR\n" +
+                "[L]Total:[C]       ${getSaleQuantity(viewModel.saleItems)}[R]            ${viewModel.sale?.billamount} INR\n" +
                 "[C]-----------------------------------------------\n"+
-                "[L]Discount : ${viewModel.sale?.discount} INR\n" +
-                "[L]RoundOff : ${viewModel.sale?.roundoff} INR\n" +
+                "[L]Discount : [R]                  ${viewModel.sale?.discount} INR\n" +
+                "[L]RoundOff : [R]                  ${viewModel.sale?.roundoff} INR\n" +
                 "[C]-----------------------------------------------\n"+
-                "[L]Net Total : ${viewModel.sale?.grosstotal} INR\n" +
+                "[L]Net Total : [R]                  ${viewModel.sale?.grosstotal} INR\n" +
                 "[C]-----------------------------------------------\n"+
                 "\n"+
                 "[C]      **THANK YOU FOR SHOPPING WITH US**\n"
-
-
+        */
         return printer.setTextToPrint(textToPrint)
 
 
+    }
+
+    private fun getSaleQuantity(saleItems: List<SalesItemsModel>?): String {
+        var qty = 0
+        saleItems?.forEach {
+            qty += it.quantity!!
+        }
+
+        return qty.toString();
     }
 
     private fun getItems(): String? {
         var items:String=""
         viewModel.saleItems?.forEach {
             if(!it.name.isNullOrBlank()){
-                items += "[L]${it.name}[C]       ${it.quantity}       [R]       ${it.sellingprize} INR\n"
+                items += "[L]${it.name}[C]        ${it.quantity}       [R]       ${it.sellingprize} INR\n"
             }else{
-                items += "[L]${it.codename}[C]       ${it.quantity}       [R]       ${it.sellingprize} INR\n"
+                items += "[L]${it.codename}[C]        ${it.quantity}       [R]       ${it.sellingprize} INR\n"
             }
 
         }

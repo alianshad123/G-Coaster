@@ -7,6 +7,7 @@ import com.anshad.g_coaster.api.ApiService
 import com.anshad.g_coaster.model.AddItemModel
 import com.anshad.g_coaster.model.ItemsModel
 import com.anshad.g_coaster.model.ItemsModelData
+import com.anshad.g_coaster.model.SearchItem
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -22,6 +23,10 @@ class ItemRemoteDataSource @Inject constructor(private val apiService: ApiServic
 
     override fun getItemById(request: AddItemModel): Single<APIResult<ItemsModel>> {
         return apiService.getItemById(request).createResult().applyNetworkSchedulers()
+    }
+
+    override fun searchItem(request: SearchItem): Single<APIResult<ItemsModelData>> {
+        return apiService.searchItem(request).createResult().applyNetworkSchedulers()
     }
 
 

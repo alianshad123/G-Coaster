@@ -11,14 +11,8 @@ import com.anshad.g_coaster.data.repositories.AddItemRepository
 import com.anshad.g_coaster.data.repositories.CartRepository
 import com.anshad.g_coaster.data.repositories.ItemsRepository
 import com.anshad.g_coaster.db.Cart
-import com.anshad.g_coaster.model.AddItemModel
-import com.anshad.g_coaster.model.ItemsModel
-import com.anshad.g_coaster.model.SalesItemsModel
-import com.anshad.g_coaster.model.SalesModel
+import com.anshad.g_coaster.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -209,9 +203,6 @@ class CartViewModel  @Inject constructor(
                 val saleId= result.data?.id
                 updateSaleItems(saleId)
 
-
-
-
             } else {
 
 
@@ -245,8 +236,6 @@ class CartViewModel  @Inject constructor(
             if (result.isSuccess) {
                 salesAdded.postValue(true)
 
-
-
             } else {
 
 
@@ -257,6 +246,30 @@ class CartViewModel  @Inject constructor(
         })
 
 
+    }
+
+    fun updateSalePrint(saleId: Int?, textToPrint: String) {
+        showLoading_()
+
+
+        repository.updateSalePrint(
+            SalesUpdate(
+                id = saleId,
+                print = textToPrint
+
+            )
+        ).subscribe({ result ->
+            hideLoading_()
+            if (result.isSuccess) {
+
+            } else {
+
+
+            }
+        }, {
+            hideLoading_()
+
+        })
     }
 
 

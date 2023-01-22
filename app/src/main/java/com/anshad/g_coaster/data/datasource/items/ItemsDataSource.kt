@@ -6,6 +6,7 @@ import com.anshad.g_coaster.data.repositories.PreferenceProvider
 import com.anshad.g_coaster.model.AddItemModel
 import com.anshad.g_coaster.model.ItemsModel
 import com.anshad.g_coaster.model.ItemsModelData
+import com.anshad.g_coaster.model.SearchItem
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -18,6 +19,7 @@ class ItemsDataSource@Inject constructor(
         fun getItems(): Single<APIResult<ItemsModelData>>
         fun deleteItem(request: AddItemModel): Single<APIResult<String>>
         fun getItemById(itemId: AddItemModel): Single<APIResult<ItemsModel>>
+        fun searchItem(request: SearchItem): Single<APIResult<ItemsModelData>>
     }
 
     override fun getItems(): Single<APIResult<ItemsModelData>> {
@@ -31,6 +33,10 @@ class ItemsDataSource@Inject constructor(
 
     override fun getItemById(request: AddItemModel): Single<APIResult<ItemsModel>> {
         return remote.getItemById(request)
+    }
+
+    override fun searchItem(request: SearchItem): Single<APIResult<ItemsModelData>> {
+        return remote.searchItem(request)
     }
 
 

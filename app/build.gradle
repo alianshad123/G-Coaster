@@ -7,7 +7,7 @@ plugins {
 }
 
 def BASE_URL = '"https://alianshad.in/gcoster/"'
-//def BASE_URL = '"http://192.168.104.55/GCoaster_PHP/"'
+//def BASE_URL = '"http://192.168.126.55/GCoaster_PHP/"'
 
 
 android {

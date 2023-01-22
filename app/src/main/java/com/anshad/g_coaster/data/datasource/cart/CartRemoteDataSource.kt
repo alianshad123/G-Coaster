@@ -8,6 +8,7 @@ import com.anshad.g_coaster.data.datasource.additem.AddItemDataSource
 import com.anshad.g_coaster.model.SalesItemsModel
 import com.anshad.g_coaster.model.SalesModel
 import com.anshad.g_coaster.model.SalesResponseModel
+import com.anshad.g_coaster.model.SalesUpdate
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -19,5 +20,9 @@ class CartRemoteDataSource @Inject constructor(private val apiService: ApiServic
 
     override fun updateSaleItems(request: List<SalesItemsModel>): Single<APIResult<String>> {
         return apiService.updateSaleItems(request).createResult().applyNetworkSchedulers()
+    }
+
+    override fun updateSalePrint(request: SalesUpdate): Single<APIResult<String>> {
+        return apiService.updateSalePrint(request).createResult().applyNetworkSchedulers()
     }
 }

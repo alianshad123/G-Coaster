@@ -25,4 +25,7 @@ class BillList {
     @SerializedName("roundoff")
     @Expose
     var roundoff: Int? = null
+    @SerializedName("print")
+    @Expose
+    var print: String? = null
 }

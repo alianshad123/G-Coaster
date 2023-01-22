@@ -1,6 +1,5 @@
 package com.anshad.g_coaster.ui.saleitems
 
-import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -119,5 +118,30 @@ class SaleItemsViewModel @Inject constructor(
 
         navigate(R.id.action_saleItemsFragment_to_cartFragment)
 
+    }
+
+    fun filterData(newText: String?) {
+        if((newText?.length ?: 0) <= 0){
+            getItems()
+            return
+        }
+        showLoading_()
+        repository.searchItem(SearchItem(search = newText)).subscribe({ apiResult ->
+            hideLoading_()
+            if (apiResult.isSuccess) {
+
+                _itemsObserveList.postValue(apiResult.data)
+                apiResult.data?.result?.forEach {
+                    itemsArray.add(it)
+                }
+            } else {
+                _itemsObserveList.postValue(null)
+
+
+            }
+        }, {
+            hideLoading_()
+
+        })
     }
 }

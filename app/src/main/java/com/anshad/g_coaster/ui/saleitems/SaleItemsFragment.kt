@@ -115,7 +115,7 @@ class SaleItemsFragment : BaseFragment<SaleItemsViewModel>(R.layout.fragment_sal
                 // new text on below line.
                 //  adapter.updateData( adapter.data.filter { it.name?.contains(newText.toString()) == true ||it.name?.contains(newText.toString()) == true })
 
-                filterData(newText);
+                viewModel.filterData(newText);
                 return false
             }
         })
@@ -130,7 +130,8 @@ class SaleItemsFragment : BaseFragment<SaleItemsViewModel>(R.layout.fragment_sal
 
                 // Do your task here
                 binding.search.setQuery("", false);
-                adapter.updateData(viewModel.itemsArray)
+               // adapter.updateData(viewModel.itemsArray)
+                viewModel.getItems()
             }
 
 

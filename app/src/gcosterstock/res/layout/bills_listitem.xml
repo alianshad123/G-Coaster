@@ -133,6 +133,7 @@
             <Button
                 android:id="@+id/btn_reprint"
                 android:text="@string/re_print"
+                android:fontFamily="@font/poppins_light"
                 android:onClick="@{(view)->listner.onDataItemClicked(billsData,view)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_bill"

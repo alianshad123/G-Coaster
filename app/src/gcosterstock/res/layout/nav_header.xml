@@ -13,6 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:text="@string/g_coaster"
+        android:fontFamily="@font/poppins_light"
         android:textColor="@color/purple_700"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

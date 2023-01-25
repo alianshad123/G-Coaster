@@ -12,7 +12,7 @@
         <variable
             name="listner"
             type="com.anshad.g_coaster.ui.sales.ItemClickListner" />
-
+        <import type="android.view.View"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -41,6 +41,7 @@
                 android:text="@{salesData.codename}"
                 android:textColor="@color/black"
                 android:textSize="22sp"
+                android:fontFamily="@font/poppins_light"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Puma">
@@ -53,7 +54,8 @@
                 android:layout_height="wrap_content"
                 android:text="@{salesData.name}"
                 android:textColor="@color/black"
-                android:textSize="20dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/poppins_light"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_code_name"
                 tools:text="Puma123">
@@ -67,6 +69,7 @@
                 android:text="@{salesData.color}"
                 android:textColor="@color/black"
                 android:textSize="20dp"
+                android:fontFamily="@font/poppins_light"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_item_name"
                 tools:text="green">
@@ -79,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{salesData.sellingprize.toString()}"
                 android:textColor="@color/black"
+                android:fontFamily="@font/poppins_light"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +97,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="Size"
+                android:visibility="@{salesData.size!=null ? View.VISIBLE : View.GONE}"
                 android:textColor="@color/black"
+                android:fontFamily="@font/poppins_light"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@id/tv_size_value"
                 app:layout_constraintTop_toBottomOf="@id/tv_sellingprize">
@@ -104,9 +110,11 @@
                 android:id="@+id/tv_size_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_light"
                 android:text="@{salesData.size.toString()}"
+                android:visibility="@{salesData.size!=null ? View.VISIBLE : View.GONE}"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_sellingprize"

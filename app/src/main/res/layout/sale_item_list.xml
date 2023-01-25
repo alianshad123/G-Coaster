@@ -54,6 +54,7 @@
                     android:text="@{itemData.name}"
                     android:textColor="@color/black"
                     android:textSize="20dp"
+                    android:fontFamily="@font/poppins_light"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_code_name"
                     tools:text="Puma123">
@@ -67,6 +68,7 @@
                     android:text="@{itemData.color}"
                     android:textColor="@color/black"
                     android:textSize="20dp"
+                    android:fontFamily="@font/poppins_light"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_item_name"
                     tools:text="green">
@@ -81,6 +83,7 @@
                     android:textColor="@color/black"
                     android:textSize="22sp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/poppins_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="50Rs">
@@ -95,6 +98,7 @@
                     android:text="Size"
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:fontFamily="@font/poppins_light"
                     app:layout_constraintEnd_toStartOf="@id/tv_size_value"
                     app:layout_constraintTop_toBottomOf="@id/tv_sellingprize">
 
@@ -108,6 +112,7 @@
                     android:textColor="@color/black"
                     android:textSize="22sp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/poppins_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_sellingprize"
                     tools:text="9">
@@ -121,6 +126,7 @@
                     android:text="@{itemData.getQuantityData}"
                     android:textColor="@color/purple_500"
                     android:textSize="22sp"
+                    android:fontFamily="@font/poppins_light"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_size_value"

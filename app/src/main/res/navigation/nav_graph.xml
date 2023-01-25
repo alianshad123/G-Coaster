@@ -28,7 +28,7 @@
             android:id="@+id/action_splashFragment_to_outofStockFragment"
             app:popUpToInclusive="true"
             app:destination="@id/nav_outofstock" />
-        <actionaction_billsFragment_to_soldItemsFragment
+        <action
             android:id="@+id/action_splashFragment_to_soldItemsFragment"
             app:popUpToInclusive="true"
             app:destination="@id/nav_sold_items" />
@@ -36,6 +36,11 @@
             android:id="@+id/action_splashFragment_to_salesReportFragment"
             app:popUpToInclusive="true"
             app:destination="@id/nav_sales_report" />
+
+        <action
+            android:id="@+id/action_splashFragment_to_billsFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/nav_bills" />
 
     </fragment>
     <fragment
@@ -124,7 +129,25 @@
             android:defaultValue="null"
             app:argType="string" />
 
-    </fragment>
+        <argument
+            android:name="saleId"
+            app:argType="long" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/nav_bills"
+        android:name="com.anshad.g_coaster.ui.bills.BillsFragment"
+        android:label="Bills"
+        tools:layout="@layout/fragment_bills" >
+        <action
+            android:id="@+id/action_billsFragment_to_soldItemsFragment"
+            app:destination="@id/nav_sold_items" />
+
+        <argument
+            android:name="dateKey"
+            android:defaultValue="null"
+            app:argType="string" />
+
+    </fragment>
 
 </navigation>

@@ -47,5 +47,6 @@
     <string name="loading">Loading</string>
     <string name="re_print">Re-Print</string>
     <string name="are_you_sure">Do you want print the bill again ?</string>
+    <string name="enter_quantity_rate">Enter Rate</string>
 
 </resources>

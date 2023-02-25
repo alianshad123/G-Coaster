@@ -24,6 +24,7 @@ class QuantityDialogFragment : DialogFragment() {
             viewModel.name = arguments?.getString("name","")
             viewModel.code = arguments?.getString("code","")
             viewModel.quantity = arguments?.getString("quantity","")
+            viewModel.rate = arguments?.getString("sellingprize","")
 
         }
     }
@@ -57,10 +58,10 @@ class QuantityDialogFragment : DialogFragment() {
     private fun setObservers() {
         viewModel.isCancelled.observe(viewLifecycleOwner) { aBoolean -> dismiss() }
 
-        viewModel.addToCart.observe(viewLifecycleOwner) { _quantity ->
-            if (_quantity!=null) {
-                val quantity: String = _quantity.toString()
-                eventListner?.onDialogEvents(QuantityEvents.POSITIVE,quantity);
+        viewModel.addToCart.observe(viewLifecycleOwner) { _itemsModel ->
+            if (_itemsModel?.quantity!=null) {
+              //  val quantity: String = _quantity.toString()
+                eventListner?.onDialogEvents(QuantityEvents.POSITIVE,_itemsModel);
             }else{
                 binding.quantity.setError("Please enter the value grater than 0")
             }
@@ -74,6 +75,7 @@ class QuantityDialogFragment : DialogFragment() {
         args.putString("name", itemData.name)
         args.putString("code", itemData.codename)
         args.putString("quantity", itemData.quantity.toString())
+        args.putString("sellingprize", itemData.sellingprize.toString())
         dialog.arguments = args
         return dialog
     }

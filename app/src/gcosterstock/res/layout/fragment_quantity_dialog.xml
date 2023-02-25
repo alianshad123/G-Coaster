@@ -35,10 +35,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:gravity="center"
+            android:gravity="left"
+            android:layout_marginStart="30dp"
             android:textSize="22sp"
             android:text="@string/enter_quantity"
-            android:fontFamily="@font/poppins_light"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
             android:textSize="22sp"
             android:textStyle="bold"
             tools:text="Puma"
-            android:fontFamily="@font/poppins_light"
+
             android:layout_marginStart="5dp"
             android:text="@{viewModel.name}"
             android:textColor="@color/purple_700"
@@ -67,36 +67,36 @@
             android:textSize="22sp"
             android:textStyle="bold"
             tools:text="D18"
-            android:fontFamily="@font/poppins_light"
+
             android:layout_marginEnd="5dp"
             android:text="@{viewModel.code}"
             android:textColor="@color/purple_700"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-      <!--  <ImageButton
-            app:layout_constraintStart_toEndOf="@id/quantity"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/quantity"
-            app:layout_constraintBottom_toBottomOf="@id/quantity"
-            android:id="@+id/add"
-            android:padding="5dp"
-            android:onClick="@{ () -> viewModel.incrementQty()}"
-            android:src="@drawable/ic_plus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <!--  <ImageButton
+              app:layout_constraintStart_toEndOf="@id/quantity"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toTopOf="@id/quantity"
+              app:layout_constraintBottom_toBottomOf="@id/quantity"
+              android:id="@+id/add"
+              android:padding="5dp"
+              android:onClick="@{ () -> viewModel.incrementQty()}"
+              android:src="@drawable/ic_plus"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
 
-        <ImageButton
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/quantity"
-            app:layout_constraintTop_toTopOf="@id/quantity"
-            app:layout_constraintBottom_toBottomOf="@id/quantity"
-            android:id="@+id/minus"
-            android:padding="5dp"
-            android:onClick="@{ () -> viewModel.decrementQty()}"
-           android:src="@drawable/ic_minus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
--->
+          <ImageButton
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toStartOf="@id/quantity"
+              app:layout_constraintTop_toTopOf="@id/quantity"
+              app:layout_constraintBottom_toBottomOf="@id/quantity"
+              android:id="@+id/minus"
+              android:padding="5dp"
+              android:onClick="@{ () -> viewModel.decrementQty()}"
+             android:src="@drawable/ic_minus"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+  -->
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/quantity"
             android:background="@drawable/bg_stroke"
@@ -104,10 +104,9 @@
             android:paddingStart="10dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
             android:hint="0"
-            android:fontFamily="@font/poppins_light"
             android:textSize="22sp"
             android:textColor="@color/black"
             android:afterTextChanged="@{viewModel::setQuantityValue}"
@@ -119,6 +118,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title" />
+        <TextView
+            android:id="@+id/title_rate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:layout_marginStart="30dp"
+            android:textSize="22sp"
+            android:text="@string/enter_quantity_rate"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/quantity" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/rate"
+            android:background="@drawable/bg_stroke"
+            android:layout_width="0dp"
+            android:paddingStart="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:hint="Enter rate"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:afterTextChanged="@{viewModel::setRateValue}"
+            android:text="@{viewModel.rateValue}"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLines="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_rate" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton2"
@@ -127,11 +160,10 @@
             android:layout_marginTop="30dp"
             android:onClick="@{ () -> viewModel.onSubmit()}"
             android:text="@string/add_to_cart"
-            android:fontFamily="@font/poppins_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/materialButton3"
-            app:layout_constraintTop_toBottomOf="@+id/quantity" />
+            app:layout_constraintTop_toBottomOf="@+id/rate" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton3"
@@ -140,11 +172,10 @@
             android:layout_marginTop="30dp"
             android:onClick="@{ () -> viewModel.onCancel()}"
             android:text="@string/cancel"
-            android:fontFamily="@font/poppins_light"
             app:layout_constraintEnd_toStartOf="@+id/materialButton2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quantity" />
+            app:layout_constraintTop_toBottomOf="@+id/rate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

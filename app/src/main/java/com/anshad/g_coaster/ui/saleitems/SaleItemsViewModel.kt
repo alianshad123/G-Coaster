@@ -81,9 +81,9 @@ class SaleItemsViewModel @Inject constructor(
         })
     }
 
-    fun updateItem(item: ItemsModel, quantity: String) {
+    fun updateItem(item: ItemsModel, itemD: ItemsModel) {
         showLoading_()
-        val qty=item.quantity?.minus(quantity.toInt())
+        val qty=item.quantity?.minus(itemD.quantity?.toInt()?:0)
         salerepository.updateItem(
             AddItemModel(
                 id=item.id,
@@ -100,7 +100,8 @@ class SaleItemsViewModel @Inject constructor(
             if (result.isSuccess) {
 
                 itemData.postValue(item.apply {
-                    this.quantity=quantity.toInt()
+                    this.quantity=itemD.quantity?.toInt()
+                    this.sellingprize=itemD.sellingprize
                 })
 
 

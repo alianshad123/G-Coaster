@@ -180,7 +180,6 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
         })
 
         binding.checkout.setOnClickListener {
-
             if (!viewModel.isClicked) {
 
                 val usbConnection = UsbPrintersConnections.selectFirstConnected(requireContext())

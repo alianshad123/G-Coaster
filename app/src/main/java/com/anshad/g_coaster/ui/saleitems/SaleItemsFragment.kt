@@ -6,11 +6,10 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.anshad.basestructure.model.LoadingMessageData
 import com.anshad.basestructure.ui.BaseFragment
 import com.anshad.basestructure.utils.EventObserver
@@ -18,12 +17,9 @@ import com.anshad.g_coaster.R
 import com.anshad.g_coaster.constants.enums.QuantityEvents
 import com.anshad.g_coaster.databinding.FragmentSaleItemsBinding
 import com.anshad.g_coaster.db.Cart
-import com.anshad.g_coaster.model.CartItemModel
-import com.anshad.g_coaster.model.CartModel
 import com.anshad.g_coaster.model.ItemsModel
 import com.anshad.g_coaster.ui.saleitems.dialogs.QuantityDialogFragment
 import com.anshad.g_coaster.ui.saleitems.dialogs.QuantityDialogListner
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -161,6 +157,10 @@ class SaleItemsFragment : BaseFragment<SaleItemsViewModel>(R.layout.fragment_sal
         viewModel.loading_.observe(viewLifecycleOwner, EventObserver {
             _onLoadingMessage(it)
         })
+
+
+
+
     }
 
     private fun _onLoadingMessage(messageData: LoadingMessageData) {
@@ -211,8 +211,8 @@ class SaleItemsFragment : BaseFragment<SaleItemsViewModel>(R.layout.fragment_sal
         dialog?.isCancelable = true
         dialog?.eventListner = object : QuantityDialogListner {
             override fun onDialogEvents(events: QuantityEvents, item: Any) {
-                val quantity = item as String
-                viewModel.updateItem(itemData, quantity)
+                val item = item as ItemsModel
+                viewModel.updateItem(itemData, item)
 
             }
 

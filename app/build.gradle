@@ -6,8 +6,8 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
-//def BASE_URL = '"https://alianshad.in/gcoster/"'
-def BASE_URL = '"http://192.168.21.55/GCoaster_PHP/"'
+def BASE_URL = '"https://alianshad.in/gcoster/"'
+//def BASE_URL = '"http://192.168.176.55/GCoaster_PHP/"'
 
 
 android {

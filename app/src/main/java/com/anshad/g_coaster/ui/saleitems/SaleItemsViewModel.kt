@@ -1,19 +1,25 @@
 package com.anshad.g_coaster.ui.saleitems
 
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.anshad.basestructure.model.Event
 import com.anshad.basestructure.model.LoadingMessageData
 import com.anshad.basestructure.ui.BaseViewModel
+import com.anshad.g_coaster.App
 import com.anshad.g_coaster.R
 import com.anshad.g_coaster.data.repositories.CartRepository
 import com.anshad.g_coaster.data.repositories.ItemsRepository
 import com.anshad.g_coaster.data.repositories.PreferenceProvider
 import com.anshad.g_coaster.data.repositories.SaleItemRepository
 import com.anshad.g_coaster.db.Cart
+import com.anshad.g_coaster.db.Items
 import com.anshad.g_coaster.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -59,14 +65,37 @@ class SaleItemsViewModel @Inject constructor(
 
 
     suspend fun insertCart(cart: Cart) = cartRepository.insertCart(cart)
+    suspend fun insertItems(items: List<Items>) = salerepository.insertItems(items)
+    suspend fun getAllItems() = salerepository.getAllItems()
 
     fun getItems(){
         showLoading_()
         repository.getItems().subscribe({ apiResult ->
             hideLoading_()
             if (apiResult.isSuccess) {
+                 val arrayList:ArrayList<ItemsModel> =apiResult.data?.result?:ArrayList()
 
-                _itemsObserveList.postValue(apiResult.data)
+                val itemsData:ArrayList<Items> = ArrayList()
+                    arrayList.forEach {
+                        val items = Items()
+                        items.id = it.id
+                        items.name = it.name
+                        items.codename = it.codename
+                        items.costprize = it.costprize
+                        items.sellingprize = it.sellingprize
+                        items.quantity = it.quantity
+                        items.size = it.size
+                        items.isDeleted = it.isDeleted
+                        items.color = it.color
+                        itemsData.add(items)
+
+                    }
+
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    insertItems(itemsData)
+                }
+             //   _itemsObserveList.postValue(apiResult.data)
                 apiResult.data?.result?.forEach {
                     itemsArray.add(it)
                 }
@@ -76,6 +105,8 @@ class SaleItemsViewModel @Inject constructor(
 
             }
         }, {
+
+
             hideLoading_()
 
         })
@@ -110,6 +141,8 @@ class SaleItemsViewModel @Inject constructor(
 
             }
         }, {
+            Toast.makeText(App.instance.applicationContext,"No Internet",Toast.LENGTH_SHORT).show()
+
             hideLoading_()
 
         })
@@ -142,6 +175,7 @@ class SaleItemsViewModel @Inject constructor(
             }
         }, {
             hideLoading_()
+            Toast.makeText(App.instance.applicationContext,"No Internet",Toast.LENGTH_SHORT).show()
 
         })
     }

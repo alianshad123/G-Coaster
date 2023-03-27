@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.anshad.g_coaster.model.ItemsModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -12,13 +13,14 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
 @Database(
-    entities = [Cart::class],
+    entities = [Cart::class,Items::class],
     version = 1,
     exportSchema = false
 )
 
 abstract class CartDatabase: RoomDatabase() {
     abstract fun getCartDao(): CartDao
+    abstract fun getItemsDao(): ItemsDao
 
     companion object {
         const val DB_NAME = "cart_database.db"

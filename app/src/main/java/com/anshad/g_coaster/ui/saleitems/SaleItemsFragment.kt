@@ -17,6 +17,7 @@ import com.anshad.g_coaster.R
 import com.anshad.g_coaster.constants.enums.QuantityEvents
 import com.anshad.g_coaster.databinding.FragmentSaleItemsBinding
 import com.anshad.g_coaster.db.Cart
+import com.anshad.g_coaster.db.Items
 import com.anshad.g_coaster.model.ItemsModel
 import com.anshad.g_coaster.ui.saleitems.dialogs.QuantityDialogFragment
 import com.anshad.g_coaster.ui.saleitems.dialogs.QuantityDialogListner
@@ -56,7 +57,10 @@ class SaleItemsFragment : BaseFragment<SaleItemsViewModel>(R.layout.fragment_sal
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as AppCompatActivity).supportActionBar?.show()
         //val menuHost: MenuHost =  requireActivity()
-        viewModel.getItems()
+        //viewModel.getItems()
+
+
+        getItems()
 
         viewModel.itemsObserveListData.observe(viewLifecycleOwner) {
             it?.let {
@@ -127,7 +131,7 @@ class SaleItemsFragment : BaseFragment<SaleItemsViewModel>(R.layout.fragment_sal
                 // Do your task here
                 binding.search.setQuery("", false);
                // adapter.updateData(viewModel.itemsArray)
-                viewModel.getItems()
+               getItems()
             }
 
 
@@ -161,6 +165,42 @@ class SaleItemsFragment : BaseFragment<SaleItemsViewModel>(R.layout.fragment_sal
 
 
 
+    }
+
+    private fun getItems() {
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModel.getAllItems().observe(viewLifecycleOwner, Observer {
+
+                if(it!=null){
+                    if(it.isNotEmpty()){
+
+                        val arrayList:ArrayList<Items> = it as ArrayList<Items>
+                        val itemsData:ArrayList<ItemsModel> = ArrayList()
+                        arrayList.forEach {
+                            val items = ItemsModel()
+                            items.id = it.id
+                            items.name = it.name
+                            items.codename = it.codename
+                            items.costprize = it.costprize
+                            items.sellingprize = it.sellingprize
+                            items.quantity = it.quantity
+                            items.size = it.size
+                            items.isDeleted = it.isDeleted
+                            items.color = it.color
+                            itemsData.add(items)
+
+                        }
+
+
+                        adapter.updateData(itemsData)
+
+
+                    }else{
+                        viewModel.getItems()
+                    }
+                }
+            })
+        }
     }
 
     private fun _onLoadingMessage(messageData: LoadingMessageData) {

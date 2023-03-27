@@ -1,5 +1,6 @@
 package com.anshad.g_coaster.model
 
+import com.anshad.g_coaster.db.Items
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
@@ -31,7 +32,7 @@ class ItemsModel : Serializable {
     var isDeleted: Int? = null
     @SerializedName("color")
     @Expose
-    val color: String? = null
+    var color: String? = null
 
     fun getQuantityData(): String? {
         if((quantity ?: 0) > 0){
@@ -40,5 +41,7 @@ class ItemsModel : Serializable {
             return "Out of Stock"
         }
     }
+
+
 
 }

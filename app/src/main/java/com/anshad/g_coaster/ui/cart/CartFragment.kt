@@ -190,6 +190,9 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
                         .setMessage("No USB printer found.")
                         .show()
                     return@setOnClickListener
+                }else{
+
+                  Toast.makeText(requireContext(),"USB is not connected",Toast.LENGTH_SHORT).show()
                 }
 
 

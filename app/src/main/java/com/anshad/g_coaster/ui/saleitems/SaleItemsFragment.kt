@@ -75,7 +75,7 @@ class SaleItemsFragment : BaseFragment<SaleItemsViewModel>(R.layout.fragment_sal
         viewModel.itemData.observe(viewLifecycleOwner, Observer {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED) {
                 if (it != null) {
-                    Toast.makeText(requireContext(),"Item added to cart",Toast.LENGTH_SHORT).show()
+
                     val cartitem = Cart(
                         id = null,
                         itemId = it.id,
@@ -90,7 +90,9 @@ class SaleItemsFragment : BaseFragment<SaleItemsViewModel>(R.layout.fragment_sal
                         )
                     CoroutineScope(Dispatchers.Main).launch {
                         viewModel.insertCart(cartitem).also {
-                            viewModel.getItems()
+                          //  viewModel.getItems()
+
+                            Toast.makeText(requireContext(),"Item added to cart",Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -168,7 +170,7 @@ class SaleItemsFragment : BaseFragment<SaleItemsViewModel>(R.layout.fragment_sal
     }
 
     private fun getItems() {
-        CoroutineScope(Dispatchers.Main).launch {
+        /*CoroutineScope(Dispatchers.Main).launch {
             viewModel.getAllItems().observe(viewLifecycleOwner, Observer {
 
                 if(it!=null){
@@ -200,7 +202,9 @@ class SaleItemsFragment : BaseFragment<SaleItemsViewModel>(R.layout.fragment_sal
                     }
                 }
             })
-        }
+        }*/
+
+        viewModel.getItems()
     }
 
     private fun _onLoadingMessage(messageData: LoadingMessageData) {
@@ -250,7 +254,7 @@ class SaleItemsFragment : BaseFragment<SaleItemsViewModel>(R.layout.fragment_sal
         val dialog = QuantityDialogFragment().newInstance(itemData)
         dialog?.isCancelable = true
         dialog?.eventListner = object : QuantityDialogListner {
-            override fun onDialogEvents(events: QuantityEvents, item: Any) {
+            override fun onDialogEvents(events: QuantityEvents, item: ItemsModel) {
                 val item = item as ItemsModel
                 viewModel.updateItem(itemData, item)
 

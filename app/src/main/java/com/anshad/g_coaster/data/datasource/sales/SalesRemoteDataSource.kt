@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 class SalesRemoteDataSource @Inject constructor(private val apiService: ApiService) :
     BaseRemote(), SalesDataSource.Remote {
-    override fun getOutofStocks(): Single<APIResult<ItemsModelData>> {
-        return apiService.getOutofStocks().createResult().applyNetworkSchedulers()
+    override fun getOutofStocks(pageLimit: PageLimit): Single<APIResult<ItemsModelData>> {
+        return apiService.getOutofStocks(pageLimit).createResult().applyNetworkSchedulers()
     }
 
     override fun getSalesReport(): Single<APIResult<SalesReportModel>> {

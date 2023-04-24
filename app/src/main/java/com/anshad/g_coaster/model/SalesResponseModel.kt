@@ -25,4 +25,7 @@ class SalesResponseModel {
     @SerializedName("roundoff")
     @Expose
     var roundoff: Double? = null
+    @SerializedName("print")
+    @Expose
+    var print: String? = null
 }

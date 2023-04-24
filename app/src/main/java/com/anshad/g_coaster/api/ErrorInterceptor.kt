@@ -1,5 +1,6 @@
 package com.anshad.g_coaster.api
 
+import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Protocol
@@ -16,6 +17,7 @@ class ErrorInterceptor ( private val baseUrl:String) : Interceptor {
         if (chain.request().url.toUri().toString().startsWith(baseUrl)) {
             response?.let {
                 val str = response.body?.string()
+                Log.d("Debug", str.toString());
                 return try {
 
                     val json = JSONObject(str)

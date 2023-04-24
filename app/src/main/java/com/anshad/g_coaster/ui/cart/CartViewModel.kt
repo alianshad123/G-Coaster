@@ -17,48 +17,48 @@ import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @HiltViewModel
-class CartViewModel  @Inject constructor(
+class CartViewModel @Inject constructor(
     private val repository: CartRepository,
-    private val itemrepository:ItemsRepository,
+    private val itemrepository: ItemsRepository,
     private val addItemRepository: AddItemRepository
 ) : BaseViewModel() {
 
 
-   /* suspend fun updateNote(note: Note) = repository.updateNote(note)
+    /* suspend fun updateNote(note: Note) = repository.updateNote(note)
 
-    suspend fun deleteNote(note: Note) = repository.deleteNote(note)
+     suspend fun deleteNote(note: Note) = repository.deleteNote(note)
 
-    suspend fun deleteNoteById(id: Int) = repository.deleteNoteById(id)
+     suspend fun deleteNoteById(id: Int) = repository.deleteNoteById(id)
 
-    suspend fun clearNote() = repository.clearNote()*/
+     suspend fun clearNote() = repository.clearNote()*/
 
     suspend fun getAllCartItems() = repository.getAllCartItems()
 
-    suspend fun deleteCartItem(cart: Cart)= repository.deleteCartItem(cart)
+    suspend fun deleteCartItem(cart: Cart) = repository.deleteCartItem(cart)
 
     suspend fun clearCart() = repository.clearCart()
 
-    var saleItems: List<SalesItemsModel>?=null
-    var sale: SalesModel?=null
-    var isClicked: Boolean=false
+    var saleId: Int? = null
+    var saleItems: List<SalesItemsModel>? = null
+    var sale: SalesModel? = null
+    var isClicked: Boolean = false
     val itemUpdated = MutableLiveData<Boolean>()
     val salesAdded = MutableLiveData<Boolean>()
-    var sale_success: Boolean=false
-    val totalAmount= MutableLiveData<Double>()
-    val grantTotalAmount= MutableLiveData<Int>()
-    val discountPercentage= MutableLiveData<String>()
-    val discountAmount= MutableLiveData<Double>()
-    val roundoff= MutableLiveData<String>()
-    var cartList=ArrayList<Cart>()
+    var sale_success: Boolean = false
+    val totalAmount = MutableLiveData<Double>()
+    val grantTotalAmount = MutableLiveData<Int>()
+    val discountPercentage = MutableLiveData<String>()
+    val discountAmount = MutableLiveData<Double>()
+    val roundoff = MutableLiveData<String>()
+    var cartList = ArrayList<Cart>()
 
-    var grantTotalValue=0.0
+    var grantTotalValue = 0.0
 
     init {
         totalAmount.postValue(0.0)
         grantTotalAmount.postValue(0)
         discountAmount.postValue(0.0)
     }
-
 
 
     private val loadingLiveData = MutableLiveData<Event<LoadingMessageData>>()
@@ -83,16 +83,17 @@ class CartViewModel  @Inject constructor(
 
     fun getItemData(itemId: Int?, quantity: Int?) {
         showLoading_()
-        itemrepository.getItemById(  AddItemModel(
-            id=itemId
-        )).subscribe({ apiResult ->
+        itemrepository.getItemById(
+            AddItemModel(
+                id = itemId
+            )
+        ).subscribe({ apiResult ->
             hideLoading_()
             if (apiResult.isSuccess) {
 
-              updateItem(itemId,quantity,apiResult?.data)
+                updateItem(itemId, quantity, apiResult?.data)
 
             } else {
-
 
 
             }
@@ -105,18 +106,18 @@ class CartViewModel  @Inject constructor(
 
 
     private fun updateItem(id: Int?, quantity: Int?, data: ItemsModel?) {
-        val qty= quantity?.plus(data?.quantity?:0)
+        val qty = quantity?.plus(data?.quantity ?: 0)
         showLoading_()
         addItemRepository.updateitems(
             AddItemModel(
-                id=data?.id,
+                id = data?.id,
                 name = data?.name,
                 codename = data?.codename,
                 costprize = data?.costprize,
                 sellingprize = data?.sellingprize,
                 quantity = qty,
                 size = data?.size,
-                color =data?.color
+                color = data?.color
             )
         ).subscribe({ result ->
             hideLoading_()
@@ -136,21 +137,21 @@ class CartViewModel  @Inject constructor(
     }
 
     fun updateFields(cartItems: List<Cart>) {
-        cartList= cartItems as ArrayList<Cart>
-        var total:Double=0.0
+        cartList = cartItems as ArrayList<Cart>
+        var total: Double = 0.0
         cartItems?.forEach {
-            total= (total + (it.sellingprize!!* it.quantity!!))
+            total = (total + (it.sellingprize!! * it.quantity!!))
         }
         totalAmount.postValue(total)
         total.roundToInt()
         grantTotalAmount.postValue(total.roundToInt())
-        grantTotalValue=total
+        grantTotalValue = total
     }
 
     fun updateGrantTotal() {
 
-        val grantTotal:Double=0.0
-       // totalAmount.value-discountPercentage.
+        val grantTotal: Double = 0.0
+        // totalAmount.value-discountPercentage.
 
     }
 
@@ -160,7 +161,7 @@ class CartViewModel  @Inject constructor(
         val discount = discnt?.times(totalAmount.value!!)
         discountAmount.postValue(discount?.toDouble())
         grantTotal = totalAmount.value?.minus(discount ?: 0.0)!!
-        grantTotalValue=grantTotal
+        grantTotalValue = grantTotal
         grantTotalAmount.postValue(grantTotal.toInt())
 
 
@@ -169,30 +170,47 @@ class CartViewModel  @Inject constructor(
     fun updateDiscountRs(dis: String?) {
         var grantTotal: Double = 0.0
         val discnt = dis?.toDouble()
-        grantTotal =grantTotalValue?.minus(discnt ?: 0.0)!!
+        grantTotal = grantTotalValue?.minus(discnt ?: 0.0)!!
         grantTotalAmount.postValue(grantTotal.toInt())
 
 
     }
 
-    fun   updateSale() {
+    fun updateSale() {
         showLoading_()
 
-        val roundoffValue:Double= roundoff.value?.toDouble()?:0.0
-        val discountPer:Int= discountAmount.value?.toInt()?:0
-        if(sale!=null){
-            sale=null
+        val roundoffValue: Double = roundoff.value?.toDouble() ?: 0.0
+        val discountPer: Int = discountAmount.value?.toInt() ?: 0
+        if (sale != null) {
+            sale = null
         }
-        var qty=0
+        var qty = 0
         cartList.forEach {
-            qty= (qty + it.quantity!!)
+            qty = (qty + it.quantity!!)
         }
+
+        if (saleItems != null) {
+            saleItems = null
+        }
+        saleItems = cartList.map {
+            SalesItemsModel(
+                itemId = it.itemId,
+                name = it.name,
+                codename = it.codename,
+                sellingprize = it.sellingprize,
+                quantity = it.quantity,
+                size = -1,
+                color = ""
+            )
+        }
+
         sale = SalesModel(
             quantity = qty,
             billamount = totalAmount.value,
             grosstotal = grantTotalAmount.value?.toDouble(),
             discount = discountPer,
-            roundoff = roundoffValue
+            roundoff = roundoffValue,
+            item = saleItems
         )
         repository.updateSale(
             sale!!
@@ -200,8 +218,9 @@ class CartViewModel  @Inject constructor(
             hideLoading_()
             if (result.isSuccess) {
 
-                val saleId= result.data?.id
-                updateSaleItems(saleId)
+                saleId = result.data?.id
+                salesAdded.postValue(true)
+                // updateSaleItems(saleId)
 
             } else {
 
@@ -213,7 +232,7 @@ class CartViewModel  @Inject constructor(
         })
     }
 
-    private fun updateSaleItems(saleId: Int?) {
+    /*private fun updateSaleItems(saleId: Int?) {
         if(saleItems!=null){
             saleItems=null
         }
@@ -246,7 +265,7 @@ class CartViewModel  @Inject constructor(
         })
 
 
-    }
+    }*/
 
     fun updateSalePrint(saleId: Int?, textToPrint: String) {
         showLoading_()

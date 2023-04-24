@@ -11,6 +11,7 @@ import com.anshad.g_coaster.R
 import com.anshad.g_coaster.data.repositories.SalesRepository
 import com.anshad.g_coaster.model.ItemsModel
 import com.anshad.g_coaster.model.ItemsModelData
+import com.anshad.g_coaster.model.PageLimit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -19,6 +20,7 @@ class OutofStockViewModel @Inject constructor(
     private val repository: SalesRepository
 ) : BaseViewModel() {
 
+     val pageLimit: Int =10
     val _itemsObserveList = MutableLiveData<ItemsModelData?>()
     val itemsObserveListData: MutableLiveData<ItemsModelData?> = _itemsObserveList
 
@@ -44,7 +46,7 @@ class OutofStockViewModel @Inject constructor(
 
     fun getOutofStocks(){
         showLoading_()
-        repository.getOutofStocks().subscribe({ apiResult ->
+        repository.getOutofStocks(PageLimit(pageLimit=pageLimit)).subscribe({ apiResult ->
             hideLoading_()
             if (apiResult.isSuccess) {
 

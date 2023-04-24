@@ -11,6 +11,7 @@ import com.anshad.g_coaster.data.repositories.PreferenceProvider
 import com.anshad.g_coaster.model.AddItemModel
 import com.anshad.g_coaster.model.ItemsModel
 import com.anshad.g_coaster.model.ItemsModelData
+import com.anshad.g_coaster.model.PageLimit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class ItemsViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-
+    private val pageLimit: Int=10
     val _itemsObserveList = MutableLiveData<ItemsModelData?>()
     val itemsObserveListData: MutableLiveData<ItemsModelData?> = _itemsObserveList
 
@@ -29,7 +30,7 @@ class ItemsViewModel @Inject constructor(
 
     fun getItems(){
         showLoading()
-        repository.getItems().subscribe({ apiResult ->
+        repository.getItems(pageLimit).subscribe({ apiResult ->
             hideLoading()
             if (apiResult.isSuccess) {
 

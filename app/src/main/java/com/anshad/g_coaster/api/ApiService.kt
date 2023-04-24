@@ -8,14 +8,16 @@ import retrofit2.adapter.rxjava3.Result
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiService {
     @POST(ApiUrls.ADD_ITEM)
     fun addItems(@Body request: AddItemModel): Single<Result<DefaultResponse<String>>>
 
-    @GET(ApiUrls.ITEMS)
+   /* @GET(ApiUrls.ITEMS)
     fun getItems(): Single<Result<DefaultResponse<ItemsModelData>>>
-
+*/    @GET(ApiUrls.ITEMS)
+    fun getItems(@Query("pageLimit") pageLimit: Int?): Single<Result<DefaultResponse<ItemsModelData>>>
     @POST(ApiUrls.UPDATE_ITEM)
     fun updateItems(@Body request: AddItemModel): Single<Result<DefaultResponse<String>>>
 
@@ -34,8 +36,8 @@ interface ApiService {
     @POST(ApiUrls.ADD_SALEITEMS)
     fun updateSaleItems(@Body request: List<SalesItemsModel>): Single<Result<DefaultResponse<String>>>
 
-    @GET(ApiUrls.OUTOFFSTOCKS)
-    fun getOutofStocks(): Single<Result<DefaultResponse<ItemsModelData>>>
+    @POST(ApiUrls.OUTOFFSTOCKS)
+    fun getOutofStocks(@Body request: PageLimit): Single<Result<DefaultResponse<ItemsModelData>>>
 
     @GET(ApiUrls.SALESREPORT)
     fun getSalesReport(): Single<Result<DefaultResponse<SalesReportModel>>>

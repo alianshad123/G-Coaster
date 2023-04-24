@@ -127,6 +127,20 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
                 if (it) {
 
                     printUsb()
+
+                    /*viewModel.sale_success = true
+                    CoroutineScope(Dispatchers.Main).launch {
+
+                        viewModel.clearCart().also {
+                            viewModel.isClicked = false
+
+                        }
+
+                    }
+
+                    val txtToPrint=setPrintText()
+                    viewModel.updateSalePrint(viewModel.saleId,txtToPrint)
+*/
                 }
             }
         })
@@ -181,7 +195,7 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
 
         binding.checkout.setOnClickListener {
             if (!viewModel.isClicked) {
-
+                //viewModel.updateSale()
                 val usbConnection = UsbPrintersConnections.selectFirstConnected(requireContext())
                 if (usbConnection == null) {
                     viewModel.isClicked=false
@@ -440,7 +454,7 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
 
             viewModel.deleteCartItem(itemData).also {
                 showCartItems()
-                viewModel.getItemData(itemData.itemId, itemData.quantity)
+                //viewModel.getItemData(itemData.itemId, itemData.quantity)
             }
 
         }
@@ -468,7 +482,7 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
                             }
 
                             val txtToPrint=setPrintText()
-                            viewModel.updateSalePrint(viewModel.saleItems?.get(0)?.saleId,txtToPrint)
+                            viewModel.updateSalePrint(viewModel.saleId,txtToPrint)
 
                             val runner = AsyncUsbEscPosPrint(context)
                             runner.execute( getAsyncEscPosPrinter(
@@ -500,7 +514,7 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
                 "[L]Mob:8075617932\n" +
                 "[C]-----------------------------------------------\n"+
                 "[L]\n" +
-                "[L]Sales#:${viewModel.saleItems?.get(0)?.saleId}[R]                  ${format.format(Date())}\n"+
+                "[L]Sales#:${viewModel.saleId}[R]                  ${format.format(Date())}\n"+
                 "[C]-----------------------------------------------\n"+
                 "[L]Item[C]       Quantity       [R]Amount\n" +
                 "[C]-----------------------------------------------\n"+

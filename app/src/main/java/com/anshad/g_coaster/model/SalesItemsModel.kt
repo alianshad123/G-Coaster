@@ -7,9 +7,6 @@ class SalesItemsModel (
     @SerializedName("itemId")
     @Expose
     var itemId: Int? = null,
-    @SerializedName("saleId")
-    @Expose
-    var saleId: Int? = null,
     @SerializedName("name")
     @Expose
     val name: String? = null,
@@ -24,9 +21,9 @@ class SalesItemsModel (
     val quantity: Int? = null,
     @SerializedName("size")
     @Expose
-    val size: Int? = null,
+    val size: Int? = -1,
     @SerializedName("color")
     @Expose
-    val color: String? = null
+    val color: String? = ""
 
 )

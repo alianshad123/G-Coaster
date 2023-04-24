@@ -19,4 +19,9 @@ class SalesModel(
     @SerializedName("roundoff")
     @Expose
     var roundoff: Double? = null,
+
+    @SerializedName("item")
+    @Expose
+    var item: List<SalesItemsModel>? = null
+
 )

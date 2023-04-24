@@ -17,9 +17,6 @@ import com.anshad.g_coaster.db.Cart
 import com.anshad.g_coaster.db.Items
 import com.anshad.g_coaster.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,6 +39,8 @@ class SaleItemsViewModel @Inject constructor(
 
     var cartDataList = ArrayList<CartModel>()
     var cartDataArrayList = ArrayList<CartItemModel>()
+
+    val pageLimit=10
 
     private val loadingLiveData = MutableLiveData<Event<LoadingMessageData>>()
     val loading_: LiveData<Event<LoadingMessageData>> = loadingLiveData
@@ -70,10 +69,10 @@ class SaleItemsViewModel @Inject constructor(
 
     fun getItems(){
         showLoading_()
-        repository.getItems().subscribe({ apiResult ->
+        repository.getItems(pageLimit).subscribe({ apiResult ->
             hideLoading_()
             if (apiResult.isSuccess) {
-                 val arrayList:ArrayList<ItemsModel> =apiResult.data?.result?:ArrayList()
+                /* val arrayList:ArrayList<ItemsModel> =apiResult.data?.result?:ArrayList()
 
                 val itemsData:ArrayList<Items> = ArrayList()
                     arrayList.forEach {
@@ -92,13 +91,14 @@ class SaleItemsViewModel @Inject constructor(
                     }
 
 
-                CoroutineScope(Dispatchers.Main).launch {
+              *//*  CoroutineScope(Dispatchers.Main).launch {
                     insertItems(itemsData)
-                }
+                }*//*
              //   _itemsObserveList.postValue(apiResult.data)
                 apiResult.data?.result?.forEach {
                     itemsArray.add(it)
-                }
+                }*/
+                _itemsObserveList.postValue(apiResult.data)
             } else {
                 _itemsObserveList.postValue(null)
 
@@ -113,7 +113,13 @@ class SaleItemsViewModel @Inject constructor(
     }
 
     fun updateItem(item: ItemsModel, itemD: ItemsModel) {
-        showLoading_()
+
+        itemData.postValue(item.apply {
+            this.quantity=itemD.quantity?.toInt()
+            this.sellingprize=itemD.sellingprize
+        })
+
+       /* showLoading_()
         val qty=item.quantity?.minus(itemD.quantity?.toInt()?:0)
         salerepository.updateItem(
             AddItemModel(
@@ -145,7 +151,7 @@ class SaleItemsViewModel @Inject constructor(
 
             hideLoading_()
 
-        })
+        })*/
     }
 
     fun navigateToCart() {

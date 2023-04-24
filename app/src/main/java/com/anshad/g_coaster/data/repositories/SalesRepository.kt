@@ -5,7 +5,7 @@ import com.anshad.g_coaster.model.*
 import io.reactivex.rxjava3.core.Single
 
 interface SalesRepository {
-    fun getOutofStocks(): Single<APIResult<ItemsModelData>>
+    fun getOutofStocks(pageLimit: PageLimit): Single<APIResult<ItemsModelData>>
     fun getSalesReport(): Single<APIResult<SalesReportModel>>
     fun getSales(request: SaleFilterDateModel):  Single<APIResult<SoldItemsModel>>
     fun getBills(request: SaleFilterDateModel):Single<APIResult<BillsListModel>>

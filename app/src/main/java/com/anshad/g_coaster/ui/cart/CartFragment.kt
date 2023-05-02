@@ -195,7 +195,6 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
 
         binding.checkout.setOnClickListener {
             if (!viewModel.isClicked) {
-                //viewModel.updateSale()
                 val usbConnection = UsbPrintersConnections.selectFirstConnected(requireContext())
                 if (usbConnection == null) {
                     viewModel.isClicked=false
@@ -206,13 +205,13 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
                     return@setOnClickListener
                 }else{
 
-                  Toast.makeText(requireContext(),"USB is not connected",Toast.LENGTH_SHORT).show()
+                    viewModel.sale_success=false
+                    viewModel.isClicked = true
+                    viewModel.updateSale()
                 }
 
 
-                viewModel.sale_success=false
-                viewModel.isClicked = true
-                viewModel.updateSale()
+
 
 
             }
@@ -502,35 +501,38 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
     }
 
     private fun setPrintText(): String {
-        val format = SimpleDateFormat("dd-MM-yyyy")
         var textPrint=""
-        textPrint= "[C]\n" +
-                "[C]           ======= G-COSTER =======\n"+
-                "[C]              SHOE HUB\n"+
-                "[C]           Let's explore the fashion\n"+
-                "[C]               CourtRoad,\n"+
-                "[C]             Alathur\n"+
-                "[C]           \n" +
-                "[L]Mob:8075617932\n" +
-                "[C]-----------------------------------------------\n"+
-                "[L]\n" +
-                "[L]Sales#:${viewModel.saleId}[R]                  ${format.format(Date())}\n"+
-                "[C]-----------------------------------------------\n"+
-                "[L]Item[C]       Quantity       [R]Amount\n" +
-                "[C]-----------------------------------------------\n"+
-                getItems()+"\n"+
-                "[C]-----------------------------------------------\n"+
-                "[C]           \n" +
-                "[C]           \n" +
-                "[L]Total:[C]       ${getSaleQuantity(viewModel.saleItems)}[R]            ${viewModel.sale?.billamount} INR\n" +
-                "[C]-----------------------------------------------\n"+
-                "[L]Discount : [R]                  ${viewModel.sale?.discount} INR\n" +
-                "[L]RoundOff : [R]                  ${viewModel.sale?.roundoff} INR\n" +
-                "[C]-----------------------------------------------\n"+
-                "[L]Net Total : [R]                  ${viewModel.sale?.grosstotal} INR\n" +
-                "[C]-----------------------------------------------\n"+
-                "\n"+
-                "[C]      **THANK YOU FOR SHOPPING WITH US**\n"
+            val format = SimpleDateFormat("dd-MM-yyyy")
+
+            textPrint= "[C]\n" +
+                    "[C]                   <b>G-COSTER</b>       \n"+
+                    "[C]              SHOE HUB\n"+
+                    "[C]           Let's explore the fashion\n"+
+                    "[C]           \n" +
+                    "[C]               CourtRoad,Alathur\n"+
+                    "[C]           \n" +
+                    "[L]Mob:8075617932\n" +
+                    "[C]   \n" +
+                    "[L]Sales#:${viewModel.saleId}[R]                  ${format.format(Date())}\n"+
+                    "[C]   \n" +
+                    "[C]\n" +
+                    "[L]Item[C]       Quantity       [R]Amount\n" +
+                    "[C]\n" +
+                    "[C]   \n" +
+                    getItems()+"\n"+
+                    "[C]   \n" +
+                    "[C]           \n" +
+                    "[C]           \n" +
+                    "[L]Total:[C]       ${getSaleQuantity(viewModel.saleItems)}[R]            ${viewModel.sale?.billamount} INR\n" +
+                    "[C]   \n" +
+                    "[L]Discount : [R]                  ${viewModel.sale?.discount} INR\n" +
+                    "[L]RoundOff : [R]                  ${viewModel.sale?.roundoff} INR\n" +
+                    "[C]   \n" +
+                    "[L]Net Total : [R]                  ${viewModel.sale?.grosstotal} INR\n" +
+                    "[C]    \n"+
+                    "[C]          Thank you for shopping\n"+
+                    "[C]\n"
+
 
         return textPrint
     }
@@ -542,35 +544,6 @@ class CartFragment : BaseFragment<CartViewModel>(R.layout.fragment_cart), ItemCl
     @SuppressLint("SimpleDateFormat")
     fun getAsyncEscPosPrinter(printerConnection: DeviceConnection?, textToPrint: String): AsyncEscPosPrinter {
         val printer = AsyncEscPosPrinter(printerConnection!!, 203, 60f, 32)
-        // createPdf(Utils.getAppPath(requireActivity()))
-        /*val textToPrint= "[C]\n" +
-                "[C]           ======= G-COSTER =======\n"+
-                "[C]              SHOE HUB\n"+
-                "[C]           Let's explore the fashion\n"+
-                "[C]               CourtRoad,\n"+
-                "[C]             Alathur\n"+
-                "[C]           \n" +
-                "[L]Mob:8075617932\n" +
-                "[C]-----------------------------------------------\n"+
-                "[L]\n" +
-                "[L]Sales#:${viewModel.saleItems?.get(0)?.saleId}[R]                  <font size='small'>"+ format.format(Date()) + "</font>\n"+
-                "[C]-----------------------------------------------\n"+
-                "[L]Item[C]       Quantity       [R]Amount\n" +
-                "[C]-----------------------------------------------\n"+
-                getItems()+"\n"+
-                "[C]-----------------------------------------------\n"+
-                "[C]           \n" +
-                "[C]           \n" +
-                "[L]Total:[C]       ${getSaleQuantity(viewModel.saleItems)}[R]            ${viewModel.sale?.billamount} INR\n" +
-                "[C]-----------------------------------------------\n"+
-                "[L]Discount : [R]                  ${viewModel.sale?.discount} INR\n" +
-                "[L]RoundOff : [R]                  ${viewModel.sale?.roundoff} INR\n" +
-                "[C]-----------------------------------------------\n"+
-                "[L]Net Total : [R]                  ${viewModel.sale?.grosstotal} INR\n" +
-                "[C]-----------------------------------------------\n"+
-                "\n"+
-                "[C]      **THANK YOU FOR SHOPPING WITH US**\n"
-        */
         return printer.setTextToPrint(textToPrint)
 
 
